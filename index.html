@@ -7,34 +7,35 @@
   <meta name="theme-color" content="#071018"/>
 
   <!--
-    ✅ LOGO (SVG) RECOMENDADO
-    - Formato: SVG (ideal)
-    - Alto ideal: 44–56px (se adapta solo)
-    - Archivo: colocá tu logo navideño como:  /logo-navidad.svg
-    - Fondo transparente
+    LOGO (SVG recomendado)
+    - archivo: logo-navidad.svg (misma carpeta)
+    - alto ideal en mobile: 58–64px, desktop: 50–56px
+    - fondo transparente
   -->
 
   <style>
     :root{
-      --bg:#060b14;
-      --bg2:#050818;
-      --panel:#0b1224;
-      --panel2:#081024;
+      --bg:#060b14; --bg2:#050818;
+      --panel:#0b1224; --panel2:#081024;
       --border:#1c2a45;
-      --text:#f4f7ff;
-      --muted:#a8b3d8;
+      --text:#f4f7ff; --muted:#a8b3d8;
 
-      /* Navidad pro (rojo + dorado + hielo) */
-      --red:#ff2d3d;
-      --red2:#d90f1f;
-      --gold:#f6c453;
-      --gold2:#ffd98a;
+      --red:#ff2d3d; --red2:#d90f1f;
+      --gold:#f6c453; --gold2:#ffd98a;
       --ice:#38d6ff;
 
       --ok:#25D366;
+
       --shadow: 0 18px 55px rgba(0,0,0,.55);
-      --soft: rgba(255,255,255,.06);
-      --soft2: rgba(255,255,255,.10);
+
+      /* feedback */
+      --good:#22c55e;
+      --goodGlow: rgba(34,197,94,.35);
+      --present:#f6c453;
+      --presentGlow: rgba(246,196,83,.30);
+      --bad:#ff2d3d;
+      --badGlow: rgba(255,45,61,.22);
+
       --ring: rgba(56,214,255,.25);
     }
 
@@ -53,7 +54,7 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* nieve suave (se mantiene en Android) */
+    /* Nieve (Android friendly) */
     .snow{position:fixed; inset:0; pointer-events:none; z-index:0;}
     .snow i{
       position:absolute; top:-14px;
@@ -62,6 +63,7 @@
       opacity:.7;
       filter: blur(.4px);
       animation: fall linear infinite;
+      will-change: transform, opacity;
     }
     @keyframes fall{
       0%{ transform:translate3d(0,-14px,0); opacity:0 }
@@ -70,8 +72,7 @@
     }
 
     .container{
-      position:relative;
-      z-index:1;
+      position:relative; z-index:1;
       max-width: 980px;
       margin: 0 auto;
       padding: 10px 12px 120px;
@@ -88,43 +89,21 @@
       box-shadow: var(--shadow);
     }
 
-    /* HEADER compacto (1 línea en mobile) */
+    /* Header compacto */
     .topbar{
-      display:flex;
-      align-items:center;
-      gap:10px;
+      display:flex; align-items:center; gap:10px;
       padding: 6px 6px 10px;
       flex-wrap:nowrap;
     }
-
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      min-width:0;
-      flex: 1;
-    }
+    .brand{display:flex; align-items:center; gap:10px; min-width:0; flex:1;}
     .brand img{
       height:52px; width:auto; display:block;
       filter: drop-shadow(0 6px 16px rgba(0,0,0,.55));
     }
-    .brand .sub{
-      font-size:12px;
-      color:var(--gold2);
-      font-weight:900;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      white-space:nowrap;
-    }
-
-    .meta{
-      display:flex; align-items:center; gap:8px;
-      flex: 0 0 auto;
-    }
-
+    .meta{display:flex; align-items:center; gap:8px; flex:0 0 auto;}
     .pill{
       display:inline-flex; align-items:center; gap:8px;
-      padding:7px 10px;
-      border-radius:999px;
-      font-size:12px;
+      padding:7px 10px; border-radius:999px; font-size:12px;
       border: 1px solid var(--border);
       background: linear-gradient(90deg, rgba(255,45,61,.12), rgba(56,214,255,.10));
       color:var(--muted);
@@ -132,8 +111,7 @@
     }
     .count{
       display:inline-flex; align-items:center;
-      padding:3px 8px;
-      border-radius:999px;
+      padding:3px 8px; border-radius:999px;
       border:1px solid rgba(246,196,83,.35);
       background: rgba(246,196,83,.12);
       color: var(--gold2);
@@ -147,20 +125,12 @@
       .container{padding:0 0 120px}
       .card{border-radius:0;border-left:0;border-right:0}
       .topbar{padding:8px 8px 10px}
-      .brand img{height:58px} /* logo más grande en mobile */
-      .brand .sub{display:none} /* reduce scroll; queda en hero */
-      .pill{padding:7px 9px}
+      .brand img{height:62px}
     }
 
-    /* GRID */
-    .grid{
-      display:grid;
-      gap:10px;
-      grid-template-columns: minmax(0,1fr);
-    }
-    @media(min-width:900px){
-      .grid{grid-template-columns: 1.1fr .9fr}
-    }
+    /* Grid */
+    .grid{display:grid; gap:10px; grid-template-columns: minmax(0,1fr);}
+    @media(min-width:900px){ .grid{grid-template-columns: 1.1fr .9fr;}}
 
     .panel{
       background: rgba(7,12,24,.6);
@@ -172,8 +142,7 @@
     }
 
     .hero{
-      display:grid;
-      gap:8px;
+      display:grid; gap:8px;
       padding: 10px 10px 12px;
       border-radius:16px;
       border:1px solid rgba(255,255,255,.06);
@@ -182,34 +151,15 @@
         radial-gradient(140% 120% at 90% 0%, rgba(56,214,255,.12), transparent 55%),
         rgba(2,6,23,.25);
     }
-
-    .hero h1{
-      margin:0;
-      font-size:18px;
-      letter-spacing:.2px;
-    }
-    .hero p{
-      margin:0;
-      font-size:13px;
-      color:var(--muted);
-    }
     .hero .tagline{
-      font-size:12px;
-      color: var(--gold2);
-      font-weight:900;
-      letter-spacing:.18em;
-      text-transform:uppercase;
+      font-size:12px; color: var(--gold2);
+      font-weight:900; letter-spacing:.18em; text-transform:uppercase;
     }
+    .hero h1{margin:0;font-size:18px}
+    .hero p{margin:0;font-size:13px;color:var(--muted)}
 
-    /* CAJA FUERTE */
-    .safeWrap{
-      display:grid;
-      gap:10px;
-      align-items:center;
-      justify-items:center;
-      padding: 8px 6px 10px;
-    }
-
+    /* Safe */
+    .safeWrap{display:grid; gap:10px; justify-items:center; padding:8px 6px 10px}
     .safe{
       width:min(560px, 100%);
       border-radius:18px;
@@ -222,44 +172,62 @@
       padding: 12px;
       position:relative;
       overflow:hidden;
+      transform: translateZ(0);
     }
-
     .safe::before{
-      content:"";
-      position:absolute; inset:-2px;
+      content:""; position:absolute; inset:-2px; pointer-events:none; z-index:0;
       background:
         radial-gradient(520px 240px at 50% -20%, rgba(246,196,83,.18), transparent 65%),
         radial-gradient(420px 220px at 0% 30%, rgba(56,214,255,.12), transparent 60%),
         radial-gradient(420px 220px at 100% 60%, rgba(255,45,61,.10), transparent 60%);
+    }
+
+    /* Door effect layer */
+    .door{
+      position:absolute; inset:10px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.22), rgba(0,0,0,.10)),
+        radial-gradient(900px 420px at 50% 0%, rgba(56,214,255,.12), transparent 60%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+      transform-origin: left center;
+      transform: translateZ(0);
+      z-index: 0;
+      opacity:.35;
       pointer-events:none;
-      z-index:0;
+    }
+    .door::after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(90deg, rgba(255,255,255,.03), transparent 40%, rgba(255,255,255,.06));
+      border-radius:16px;
+      opacity:.8;
+    }
+    .doorKnob{
+      position:absolute;
+      right:18px; top:50%;
+      width:18px; height:18px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, var(--gold2), var(--gold));
+      box-shadow: 0 10px 22px rgba(0,0,0,.45);
+      transform: translateY(-50%);
     }
 
     .safeTop{
-      position:relative;
-      z-index:1;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-      flex-wrap:wrap;
+      position:relative; z-index:2;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; margin-bottom:10px; flex-wrap:wrap;
     }
-    .safeTop .left{
-      display:flex; gap:10px; align-items:center;
-    }
+    .safeTop .left{display:flex; gap:10px; align-items:center;}
     .shield{
-      width:38px;height:38px;border-radius:12px;
-      display:grid; place-items:center;
+      width:38px;height:38px;border-radius:12px; display:grid; place-items:center;
       background: radial-gradient(100% 100% at 50% 0%, rgba(56,214,255,.25), rgba(255,45,61,.18));
       border:1px solid rgba(255,255,255,.08);
       box-shadow: 0 12px 22px rgba(0,0,0,.4), inset 0 0 0 1px rgba(255,255,255,.04);
       font-size:18px;
     }
-    .safeTop .title{
-      display:grid; gap:2px;
-      min-width:0;
-    }
+    .safeTop .title{display:grid; gap:2px; min-width:0;}
     .safeTop .title b{font-size:14px}
     .safeTop .title span{font-size:12px;color:var(--muted)}
     .tries{
@@ -284,17 +252,11 @@
       box-shadow:0 0 0 4px rgba(246,196,83,.12);
     }
 
-    /* display del código */
     .dialRow{
-      position:relative;
-      z-index:1;
-      display:grid;
-      grid-template-columns:1fr 1fr 1fr;
-      gap:10px;
-      margin-top:6px;
-      margin-bottom:10px;
+      position:relative; z-index:2;
+      display:grid; grid-template-columns:1fr 1fr 1fr;
+      gap:10px; margin-top:6px; margin-bottom:10px;
     }
-
     .dial{
       border-radius:16px;
       border:1px solid rgba(255,255,255,.08);
@@ -302,29 +264,29 @@
         radial-gradient(120% 120% at 50% 0%, rgba(255,255,255,.08), rgba(255,255,255,.02)),
         rgba(2,6,23,.35);
       padding:10px;
-      display:grid;
-      gap:10px;
-      justify-items:center;
+      display:grid; gap:10px; justify-items:center;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
     }
 
-    .dial .num{
+    /* Número (con estados) */
+    .num{
       width:100%;
       height:56px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.10);
       background: rgba(0,0,0,.25);
       display:grid;place-items:center;
       font-size:26px;
       font-weight:1000;
       letter-spacing:.12em;
       color:var(--text);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
       user-select:none;
       position:relative;
       overflow:hidden;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.03);
+      transition: border-color .18s ease, box-shadow .18s ease, transform .08s ease;
     }
-    .dial .num::after{
+    .num::after{
       content:"";
       position:absolute; inset:0;
       background: linear-gradient(90deg, transparent, rgba(56,214,255,.10), transparent);
@@ -334,16 +296,34 @@
     }
     @keyframes shine{ 0%{transform:translateX(-120%)} 55%{transform:translateX(120%)} 100%{transform:translateX(120%)} }
 
-    .dialBtns{
-      width:100%;
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:8px;
+    /* Estados */
+    .num.state-exact{
+      border-color: rgba(34,197,94,.70);
+      box-shadow:
+        0 0 0 2px rgba(34,197,94,.20),
+        0 10px 22px rgba(0,0,0,.25),
+        0 0 26px rgba(34,197,94,.18);
+      transform: translateY(-1px);
     }
+    .num.state-present{
+      border-color: rgba(246,196,83,.70);
+      box-shadow:
+        0 0 0 2px rgba(246,196,83,.16),
+        0 10px 22px rgba(0,0,0,.25),
+        0 0 26px rgba(246,196,83,.14);
+      transform: translateY(-1px);
+    }
+    .num.state-miss{
+      border-color: rgba(255,45,61,.55);
+      box-shadow:
+        0 0 0 2px rgba(255,45,61,.10),
+        0 10px 22px rgba(0,0,0,.25);
+    }
+
+    .dialBtns{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px}
     .miniBtn{
       appearance:none;border:none;cursor:pointer;
-      padding:10px 10px;
-      border-radius:12px;
+      padding:10px 10px;border-radius:12px;
       font-weight:900;
       background: rgba(255,255,255,.06);
       border:1px solid rgba(255,255,255,.10);
@@ -356,92 +336,63 @@
     .miniBtn.up{background: linear-gradient(180deg, rgba(56,214,255,.16), rgba(255,255,255,.04))}
     .miniBtn.down{background: linear-gradient(180deg, rgba(255,45,61,.16), rgba(255,255,255,.04))}
 
-    /* feedback tipo mastermind */
     .feedback{
-      position:relative;
-      z-index:1;
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
+      position:relative; z-index:2;
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
       flex-wrap:wrap;
       border-radius:14px;
       border:1px dashed rgba(255,255,255,.12);
       background: rgba(2,6,23,.30);
       padding:10px 10px;
     }
-    .fbLeft{
-      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
-      color:var(--muted); font-size:12px;
-    }
+    .fbLeft{display:flex; gap:10px; align-items:center; flex-wrap:wrap; color:var(--muted); font-size:12px;}
     .chip{
       display:inline-flex; align-items:center; gap:8px;
-      padding:6px 10px;
-      border-radius:999px;
+      padding:6px 10px; border-radius:999px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
-      font-weight:900;
-      color:var(--text);
+      font-weight:900; color:var(--text);
     }
     .chip .k{color:var(--muted); font-weight:800}
-    .chip.good{border-color: rgba(246,196,83,.35); background: rgba(246,196,83,.10)}
-    .chip.ice{border-color: rgba(56,214,255,.35); background: rgba(56,214,255,.10)}
+    .chip.good{border-color: rgba(34,197,94,.35); background: rgba(34,197,94,.10)}
+    .chip.ice{border-color: rgba(246,196,83,.35); background: rgba(246,196,83,.10)}
     .chip.red{border-color: rgba(255,45,61,.35); background: rgba(255,45,61,.10)}
     .fbMsg{color:var(--muted); font-size:12px; max-width: 52ch}
 
-    /* botones grandes */
-    .actions{
-      display:flex;
-      gap:10px;
-      width:min(560px, 100%);
-      flex-wrap:wrap;
-    }
+    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.10),transparent);margin:10px 0}
+
+    .actions{display:flex; gap:10px; width:min(560px,100%); flex-wrap:wrap}
     .btn{
       flex:1;
       appearance:none;border:none;cursor:pointer;
-      padding:13px 14px;
-      border-radius:16px;
-      font-weight:1000;
-      letter-spacing:.2px;
+      padding:13px 14px;border-radius:16px;
+      font-weight:1000; letter-spacing:.2px;
       color:#081024;
       box-shadow: 0 12px 28px rgba(0,0,0,.35);
       transition: transform .06s ease, filter .12s ease;
       touch-action: manipulation;
+      display:inline-grid; place-items:center;
     }
     .btn:active{transform:scale(.99)}
     .btn:disabled{opacity:.55; cursor:not-allowed; filter:saturate(.6)}
-    .btn.primary{
-      background: linear-gradient(90deg, var(--red), #ff5966);
-    }
-    .btn.secondary{
-      background: linear-gradient(90deg, var(--gold), var(--gold2));
-    }
+    .btn.primary{background: linear-gradient(90deg, var(--red), #ff5966);}
+    .btn.secondary{background: linear-gradient(90deg, var(--gold), var(--gold2));}
     .btn.ghost{
       background: transparent;
       color: var(--text);
       border:1px solid rgba(255,255,255,.12);
       box-shadow:none;
     }
+    a.btn{text-decoration:none}
 
-    .divider{
-      height:1px;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,.10), transparent);
-      margin: 10px 0;
-    }
-
-    /* panel derecho */
     .stat{
       display:flex; gap:12px; align-items:center; justify-content:center;
-      margin: 6px 0 10px;
-      flex-wrap:wrap;
+      margin: 6px 0 10px; flex-wrap:wrap;
     }
     .badge{
-      min-width:74px;
-      height:48px;
-      border-radius:14px;
+      min-width:74px;height:48px;border-radius:14px;
       display:grid; place-items:center;
-      font-weight:1000;
-      font-size:18px;
+      font-weight:1000;font-size:18px;
       color: var(--text);
       border: 1px solid rgba(255,255,255,.10);
       background:
@@ -449,79 +400,20 @@
         rgba(2,6,23,.25);
       box-shadow: inset 0 0 12px rgba(56,214,255,.10);
     }
-    .smallline{
-      font-size:12px;
-      color: var(--muted);
-      text-align:center;
-    }
+    .smallline{font-size:12px;color:var(--muted);text-align:center}
 
     .note{
-      font-size:12px;
-      color: var(--muted);
+      font-size:12px;color:var(--muted);
       border-radius:14px;
       border:1px dashed rgba(255,255,255,.12);
       background: rgba(2,6,23,.22);
       padding:10px;
     }
 
-    /* lista de premios */
-    .prizes{
-      margin-top:10px;
-      display:grid;
-      gap:8px;
-    }
-    .prizes h3{
-      margin:0;
-      font-size:13px;
-      color:var(--muted);
-    }
-    .plist{
-      display:grid;
-      gap:6px;
-      list-style:none;
-      padding:0;
-      margin:0;
-    }
-    .plist li{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.03);
-      font-size:12px;
-      color:var(--muted);
-    }
-    .plist b{color:var(--text)}
-    .tag{
-      padding:3px 8px;
-      border-radius:999px;
-      font-weight:900;
-      border:1px solid rgba(255,255,255,.10);
-      color: var(--text);
-      white-space:nowrap;
-    }
-    .tag.g{background:rgba(246,196,83,.12); border-color:rgba(246,196,83,.35); color:var(--gold2)}
-    .tag.i{background:rgba(56,214,255,.12); border-color:rgba(56,214,255,.35); color:#bfefff}
-    .tag.r{background:rgba(255,45,61,.12); border-color:rgba(255,45,61,.35); color:#ffd0d4}
-
-    /* dock inferior (botones finales) */
-    .dock{
-      position:fixed; left:0; right:0; bottom:0; z-index:50;
-      background: linear-gradient(180deg, rgba(6,11,20,0) 0%, rgba(6,11,20,.82) 22%, rgba(6,11,20,.95) 100%);
-      padding:10px 12px 12px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
     /* Modal */
     .modal{
       position:fixed; inset:0;
-      display:none;
-      align-items:center; justify-content:center;
+      display:none; align-items:center; justify-content:center;
       background: rgba(0,0,0,.62);
       backdrop-filter: blur(6px);
       z-index:80;
@@ -537,50 +429,69 @@
         rgba(8,16,36,.92);
       box-shadow: 0 22px 60px rgba(0,0,0,.6);
       padding:14px;
-      position:relative;
     }
-    .modalHead{
-      display:flex; align-items:center; gap:10px;
-      margin-bottom:10px;
-    }
+    .modalHead{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
     .modalHead img{height:42px;width:auto;display:block}
     .modalHead .x{
-      margin-left:auto;
-      cursor:pointer;
-      opacity:.85;
-      font-weight:900;
-      padding:6px 10px;
-      border-radius:12px;
+      margin-left:auto; cursor:pointer; opacity:.85; font-weight:900;
+      padding:6px 10px; border-radius:12px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.04);
     }
     .modalHead .x:hover{opacity:1}
     .modalBody{display:grid; gap:10px}
     .row{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      padding:10px 12px;
-      border-radius:14px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:10px 12px; border-radius:14px;
       border:1px dashed rgba(255,255,255,.14);
       background: rgba(2,6,23,.25);
-      font-size:13px;
-      color:var(--muted);
+      font-size:13px; color:var(--muted);
     }
     .row b{color:var(--text)}
     .modalActions{display:flex; gap:10px; flex-wrap:wrap; margin-top:4px}
 
-    /* Animación de “unlock” */
-    .pulse{
-      animation: pulse 1.2s ease-in-out infinite;
-    }
-    @keyframes pulse{
-      0%,100%{filter:drop-shadow(0 0 0 rgba(56,214,255,.0))}
-      50%{filter:drop-shadow(0 0 18px rgba(56,214,255,.22))}
+    /* Dock */
+    .dock{
+      position:fixed; left:0; right:0; bottom:0; z-index:50;
+      background: linear-gradient(180deg, rgba(6,11,20,0) 0%, rgba(6,11,20,.82) 22%, rgba(6,11,20,.95) 100%);
+      padding:10px 12px 12px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
     }
 
-    /* Android UX */
-    button, .miniBtn, .btn { -webkit-user-select:none; user-select:none; }
-    input { font-size:16px; } /* evita zoom en iOS/Android */
+    /* Micro anims */
+    .shake{animation: shake .35s ease-in-out;}
+    @keyframes shake{
+      0%,100%{transform:translateX(0)}
+      20%{transform:translateX(-6px)}
+      40%{transform:translateX(6px)}
+      60%{transform:translateX(-4px)}
+      80%{transform:translateX(4px)}
+    }
+
+    .unlocking .door{
+      animation: openDoor 850ms cubic-bezier(.2,.85,.15,1) forwards;
+      opacity:.85;
+    }
+    @keyframes openDoor{
+      0%{ transform: perspective(800px) rotateY(0deg) translateZ(0); }
+      100%{ transform: perspective(800px) rotateY(-74deg) translateZ(0); }
+    }
+    .spark{
+      position:absolute; inset:-2px; pointer-events:none;
+      border-radius:18px;
+      box-shadow: 0 0 0 rgba(246,196,83,0);
+      animation: spark 1.1s ease-out forwards;
+    }
+    @keyframes spark{
+      0%{ box-shadow:0 0 0 rgba(246,196,83,0); }
+      40%{ box-shadow:0 0 44px rgba(246,196,83,.22), 0 0 22px rgba(56,214,255,.16); }
+      100%{ box-shadow:0 0 0 rgba(246,196,83,0); }
+    }
+
+    /* iOS/Android avoid zoom */
+    input{font-size:16px}
   </style>
 </head>
 
@@ -593,7 +504,7 @@
       <div class="modalHead">
         <img id="mLogo" src="logo-navidad.svg" alt="Logo" onerror="this.style.display='none'">
         <div>
-          <div id="mTitle" style="font-weight:1000">🎁 Premio asignado</div>
+          <div id="mTitle" style="font-weight:1000">🎁 Beneficio asignado</div>
           <div style="font-size:12px;color:var(--muted)">Guardalo para reclamar</div>
         </div>
         <div class="x" id="mX">✖</div>
@@ -604,7 +515,7 @@
         <div class="row"><span>Fecha/Hora</span><b id="mTs">—</b></div>
         <div class="modalActions">
           <button id="mClaim" class="btn primary">📲 Reclamar por WhatsApp</button>
-          <a id="mEnter" class="btn secondary" href="#" target="_blank" rel="noopener" style="text-decoration:none;display:inline-grid;place-items:center;">🎮 Entrar a la plataforma</a>
+          <a id="mEnter" class="btn secondary" href="https://bet300.biz" target="_blank" rel="noopener">🎮 Entrar a la plataforma</a>
           <button id="mClose" class="btn ghost">Cerrar</button>
         </div>
       </div>
@@ -613,13 +524,11 @@
 
   <div class="container">
     <div class="card">
-      <!-- HEADER (compacto) -->
+      <!-- HEADER -->
       <div class="topbar">
         <div class="brand">
           <img id="topLogo" src="logo-navidad.svg" alt="Logo" onerror="this.style.display='none'">
-          <div class="sub">ESPECIAL NAVIDAD</div>
         </div>
-
         <div class="meta">
           <span class="pill time">⏱️ <span class="count" id="countdown">--:--</span></span>
           <span class="pill sound" id="soundToggle">🔊 <b id="soundState">ON</b></span>
@@ -627,28 +536,29 @@
       </div>
 
       <div class="grid">
-        <!-- IZQUIERDA: juego -->
+        <!-- IZQUIERDA -->
         <div class="panel">
           <div class="hero">
-            <div class="tagline">Especial Navidad</div>
+            <div class="tagline">Beneficio diario</div>
             <h1>🔐 Caja Fuerte · Crack the code</h1>
             <p>
-              Tenés <b>3 intentos</b> para abrirla. Si abrís: premio mayor.
-              Si no abrís: <b>premio garantizado</b> (20% o $3.000).
+              Tenés <b>3 intentos</b>. Si abrís, desbloqueás premio mayor.
+              Si no abrís: <b>premio garantizado</b> (<b>20%</b> o <b>$3.000</b>).
             </p>
           </div>
 
           <div class="safeWrap">
             <div class="safe" id="safeBox">
+              <div class="door"><div class="doorKnob"></div></div>
+
               <div class="safeTop">
                 <div class="left">
                   <div class="shield" id="shield">🛡️</div>
                   <div class="title">
                     <b id="safeTitle">Ingresá el código</b>
-                    <span id="safeSub">Ajustá los 3 dígitos y probá suerte (con lógica 😉)</span>
+                    <span id="safeSub">Después de cada intento te marca en verde/dorado para ayudarte.</span>
                   </div>
                 </div>
-
                 <div class="tries">
                   <span>Intentos</span>
                   <span class="dots" id="dots"></span>
@@ -687,7 +597,7 @@
                   <span class="chip ice"><span class="k">🟡 Presentes</span> <b id="present">0</b></span>
                   <span class="chip red"><span class="k">🎯 Intento</span> <b id="tryNo">1/3</b></span>
                 </div>
-                <div class="fbMsg" id="fbMsg">Tip: “Exactos” = número y posición correcta.</div>
+                <div class="fbMsg" id="fbMsg">Exacto = número y posición correcta. Presente = está pero en otra posición.</div>
               </div>
 
               <div class="divider"></div>
@@ -699,17 +609,17 @@
             </div>
 
             <div class="actions">
-              <a class="btn secondary" id="enterBtn" href="https://bet300.biz" target="_blank" rel="noopener" style="text-decoration:none;display:inline-grid;place-items:center;">🎮 Entrar a la plataforma</a>
+              <a class="btn secondary" id="enterBtn" href="https://bet300.biz" target="_blank" rel="noopener">🎮 Entrar a la plataforma</a>
               <button class="btn ghost" id="againBtn" type="button">🔁 Intentar de nuevo</button>
             </div>
 
             <div class="note" id="dailyNote">
-              ⛔ <b>1 vez por día</b> por dispositivo. Si ya jugaste hoy, te va a avisar.
+              ⛔ <b>1 vez por día</b> por dispositivo. Si ya jugaste hoy, te avisa.
             </div>
           </div>
         </div>
 
-        <!-- DERECHA: info + premios -->
+        <!-- DERECHA -->
         <div class="panel">
           <div class="stat">
             <div>
@@ -723,50 +633,33 @@
           </div>
 
           <div class="note" id="ruleBox">
-            <b>Cómo se gana:</b><br/>
-            • Abrís si conseguís <b>3 exactos</b> (los 3 números en su lugar).<br/>
-            • Si no abrís en 3 intentos: <b>premio garantizado</b> (20% o $3.000).
-          </div>
-
-          <div class="prizes">
-            <h3>🎁 Posibles premios</h3>
-            <ul class="plist" id="prizeList">
-              <li><span><b>Premio mayor</b> (si abrís rápido)</span><span class="tag g">50% / $10.000</span></li>
-              <li><span><b>Premio medio</b></span><span class="tag i">40% / $5.000</span></li>
-              <li><span><b>Premio menor</b> (si abrís al 3er intento)</span><span class="tag r">30% / $4.000</span></li>
-              <li><span><b>Garantizado</b> (si no abrís)</span><span class="tag g">20% o $3.000</span></li>
-            </ul>
-          </div>
-
-          <div class="divider"></div>
-
-          <div class="note">
-            ✅ Recomendación: avisale al operador el <b>código</b> que te aparece.<br/>
-            Si querés, también podés entrar directo a la plataforma.
+            <b>Cómo funciona:</b><br/>
+            • En cada intento te marca en <b>verde</b> lo exacto y en <b>dorado</b> lo presente (mal ubicado).<br/>
+            • Si en 3 intentos no abrís: <b>premio garantizado</b> 20% o $3.000.
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- DOCK: cuando ya hay premio -->
   <div class="dock">
     <button id="claimBtn" class="btn primary" disabled>📲 Reclamar por WhatsApp</button>
-    <a id="dockEnter" class="btn secondary" href="https://bet300.biz" target="_blank" rel="noopener" style="text-decoration:none;display:inline-grid;place-items:center;">🎮 Entrar a la plataforma</a>
+    <a id="dockEnter" class="btn secondary" href="https://bet300.biz" target="_blank" rel="noopener">🎮 Entrar a la plataforma</a>
   </div>
 
 <script>
 /* ===========================================================
-  CAJA FUERTE · Crack the code (3 intentos, 1 vez por día)
-  - Profesional, mobile-first (Android OK)
-  - Antifraude local: device_id + fecha + pc + SALT
-  - 5 parámetros: ?pc=1|2|3|4|5 (para WhatsApp/operador)
+  CAJA FUERTE · Crack the code
+  - 3 intentos
+  - 1 vez por día (por dispositivo) -> localStorage
+  - premio garantizado: 20% o $3.000
+  - 5 parámetros: ?pc=1|2|3|4|5
 =========================================================== */
 
 /* ========= Config ========= */
 const PLATFORM_LINK = "https://bet300.biz";
 
-/* WhatsApp genéricos (después los reemplazás por reales) */
+/* WhatsApp genéricos (reemplazás luego) */
 const WP_NUMBERS = {
   pc1: "5491100000001",
   pc2: "5491100000002",
@@ -791,13 +684,13 @@ const pc = /^[1-5]$/.test(pcParam) ? pcParam : "1";
 const pcKey = "pc"+pc;
 const WP = normalizeWP(WP_NUMBERS[pcKey]);
 
-/* enlaces */
+/* links */
 document.getElementById("enterBtn").href = PLATFORM_LINK;
 document.getElementById("dockEnter").href = PLATFORM_LINK;
 document.getElementById("mEnter").href = PLATFORM_LINK;
 
 /* ========= Antifraude ========= */
-const SALT = "bet300-safe-v1";
+const SALT = "bet300-safe-v2";
 function ensureDeviceId(){
   let id = localStorage.getItem("device_id");
   if(!id){
@@ -828,13 +721,10 @@ async function makeClaimCode(prizeLabel){
   return hex.slice(0,10).toUpperCase();
 }
 
-/* ========= Secreto del día (estable) =========
-   No es “inseguro” (sin servidor), pero evita refresh abuse.
-*/
+/* secreto estable del día (por dispositivo/pc) */
 async function dailySecret(){
   const base = `${DEVICE_ID}|${todayKey()}|pc:${pc}|secret|${SALT}`;
   const hex = await sha256hex(base);
-  // tomar 3 dígitos 0-9 de forma determinística
   const a = parseInt(hex.slice(0,2),16)%10;
   const b = parseInt(hex.slice(2,4),16)%10;
   const c = parseInt(hex.slice(4,6),16)%10;
@@ -842,7 +732,8 @@ async function dailySecret(){
 }
 
 /* ========= UI refs ========= */
-const n1=document.getElementById("n1"), n2=document.getElementById("n2"), n3=document.getElementById("n3");
+const safeBox=document.getElementById("safeBox");
+const nEls=[document.getElementById("n1"),document.getElementById("n2"),document.getElementById("n3")];
 const exactEl=document.getElementById("exact");
 const presentEl=document.getElementById("present");
 const tryNoEl=document.getElementById("tryNo");
@@ -872,7 +763,7 @@ const mClaim=document.getElementById("mClaim");
 const mClose=document.getElementById("mClose");
 const mX=document.getElementById("mX");
 
-/* ========= Sonido (suave) ========= */
+/* ========= Sonido ========= */
 let soundOn=true;
 const soundToggle=document.getElementById("soundToggle");
 const soundState=document.getElementById("soundState");
@@ -900,18 +791,21 @@ soundToggle.addEventListener("click",()=>{
   soundState.textContent=soundOn?"ON":"OFF";
 });
 
+/* ========= Vibración Android (opcional) ========= */
+function vibrate(pattern){
+  try{
+    if(navigator.vibrate) navigator.vibrate(pattern);
+  }catch(e){}
+}
+
 /* ========= Helpers ========= */
 function money(n){ return "$"+Number(n).toLocaleString("es-AR"); }
-
-/* Premio (label + tipo) */
 function prizeLabel(p){
   if(p.type==="percent") return `${p.value}%`;
   if(p.type==="money") return money(p.value);
   if(p.type==="double") return `Doble carga`;
   return String(p.value||"—");
 }
-
-/* WhatsApp text */
 function whatsappText(pLabel, code, ts){
   return `Hola, obtuve *${pLabel}* en la *Caja Fuerte BET300* 🔐\n`+
          `Código: *${code}* · ${ts}\n`+
@@ -920,11 +814,10 @@ function whatsappText(pLabel, code, ts){
 
 /* ========= Juego ========= */
 const MAX_TRIES = 3;
-
-let secret = [0,0,0];
-let guess  = [0,0,0];
-let triesUsed = 0;
-let locked = false;
+let secret=[0,0,0];
+let guess=[0,0,0];
+let triesUsed=0;
+let locked=false;
 
 /* storage keys por pc */
 const KEY_PREFIX = `safe_${pcKey}_`;
@@ -934,7 +827,7 @@ const K_PRIZE= KEY_PREFIX+"prize";
 const K_CODE = KEY_PREFIX+"code";
 const K_TS   = KEY_PREFIX+"ts";
 
-/* Dots UI */
+/* Dots */
 function paintDots(){
   dots.innerHTML="";
   for(let i=0;i<MAX_TRIES;i++){
@@ -943,31 +836,31 @@ function paintDots(){
     dots.appendChild(d);
   }
 }
-
-/* Actualiza display num */
 function syncNums(){
-  n1.textContent=guess[0];
-  n2.textContent=guess[1];
-  n3.textContent=guess[2];
+  nEls[0].textContent=guess[0];
+  nEls[1].textContent=guess[1];
+  nEls[2].textContent=guess[2];
 }
-
-/* Reset UI feedback */
+function clearNumStates(){
+  nEls.forEach(el=>{
+    el.classList.remove("state-exact","state-present","state-miss");
+  });
+}
 function resetFeedback(){
   exactEl.textContent="0";
   presentEl.textContent="0";
   tryNoEl.textContent=`${Math.min(triesUsed+1,MAX_TRIES)}/${MAX_TRIES}`;
-  fbMsg.textContent="Tip: “Presentes” = está en el código pero en otra posición.";
+  fbMsg.textContent="Exacto = número y posición correcta. Presente = está pero en otra posición.";
+  clearNumStates();
 }
 
-/* Increment/decrement (0..9 circular) */
+/* Step */
 function step(i,delta){
   if(locked) return;
   guess[i] = (guess[i] + delta + 10) % 10;
   syncNums();
   if(soundOn) AudioKit.click();
 }
-
-/* Attach buttons */
 document.getElementById("u1").onclick=()=>step(0,+1);
 document.getElementById("d1").onclick=()=>step(0,-1);
 document.getElementById("u2").onclick=()=>step(1,+1);
@@ -982,40 +875,58 @@ resetBtn.onclick=()=>{
   resetFeedback();
 };
 
-/* ========= Evaluación (exactos/presentes correcto con repetidos) ========= */
-function evaluate(secretArr, guessArr){
+/* ========= Evaluación detallada por dígito =========
+   Queremos pintar:
+   - Exacto (posición correcta) -> verde
+   - Presente (está en secreto pero otra posición) -> dorado
+   - Miss -> rojo
+*/
+function evaluateDetailed(secretArr, guessArr){
+  const state = ["miss","miss","miss"];
   let exact=0;
 
+  // exactos
   const sLeft=[], gLeft=[];
   for(let i=0;i<3;i++){
-    if(secretArr[i]===guessArr[i]) exact++;
-    else{
+    if(secretArr[i]===guessArr[i]){
+      state[i]="exact";
+      exact++;
+    }else{
       sLeft.push(secretArr[i]);
-      gLeft.push(guessArr[i]);
+      gLeft.push({val:guessArr[i], idx:i});
     }
   }
-  // present = intersección con conteo (bolsa)
+
+  // conteo para presentes (bolsa)
   const counts = new Map();
   sLeft.forEach(x=>counts.set(x,(counts.get(x)||0)+1));
-  let present=0;
-  gLeft.forEach(x=>{
-    const c=counts.get(x)||0;
-    if(c>0){ present++; counts.set(x,c-1); }
-  });
 
-  return {exact, present};
+  let present=0;
+  for(const item of gLeft){
+    const c=counts.get(item.val)||0;
+    if(c>0){
+      present++;
+      state[item.idx]="present";
+      counts.set(item.val,c-1);
+    }
+  }
+
+  return { exact, present, state };
 }
 
-/* ========= Premios =========
-   - Si abre (exact=3): premio según intento (más rápido = mejor)
-   - Si no abre: garantizado 20% o $3.000
-   - (Opcional) podés agregar "double" en el mejor premio si querés
-*/
+function applyNumStates(stateArr){
+  clearNumStates();
+  stateArr.forEach((s,i)=>{
+    if(s==="exact") nEls[i].classList.add("state-exact");
+    else if(s==="present") nEls[i].classList.add("state-present");
+    else nEls[i].classList.add("state-miss");
+  });
+}
+
+/* ========= Premios ========= */
 function rollPrize(opened, attemptNo){
   if(opened){
-    // attemptNo: 1..3
     if(attemptNo===1){
-      // premio mayor (50% o 10k o doble)
       const r=Math.random();
       if(r<0.40) return {type:"percent", value:50};
       if(r<0.85) return {type:"money", value:10000};
@@ -1026,12 +937,10 @@ function rollPrize(opened, attemptNo){
       if(r<0.50) return {type:"percent", value:40};
       return {type:"money", value:5000};
     }
-    // attempt 3
     const r=Math.random();
     if(r<0.55) return {type:"percent", value:30};
     return {type:"money", value:4000};
   }else{
-    // garantizado: 50/50
     return (Math.random()<0.5) ? {type:"percent", value:20} : {type:"money", value:3000};
   }
 }
@@ -1051,72 +960,38 @@ function restoreDaily(){
   }
 }
 
-/* Mostrar premio guardado si existe */
-function restoreIfPlayed(){
-  const done = localStorage.getItem(K_DONE)==="1";
-  const saved = localStorage.getItem(K_PRIZE);
-  if(done && saved){
-    const p = JSON.parse(saved);
-    const code = localStorage.getItem(K_CODE) || "—";
-    const ts = localStorage.getItem(K_TS) || tsString();
-
-    applyPrizeUI(p, code, ts, true);
-    lockGameUI();
-  }else{
-    // limpio UI
-    badge.textContent="—";
-    stamp.textContent="Código: —";
-    rTitle.textContent="Tenés 1 juego disponible";
-    rSub.textContent="Abrí la caja para desbloquear tu beneficio.";
-    claimBtn.disabled=true;
-  }
-}
-
-/* ========= Lock / Unlock UI ========= */
+/* ========= Lock UI ========= */
 function lockGameUI(){
-  locked = true;
-  tryBtn.disabled = true;
-  resetBtn.disabled = true;
+  locked=true;
+  tryBtn.disabled=true;
+  resetBtn.disabled=true;
   shield.textContent="🔒";
   safeTitle.textContent="Juego utilizado";
-  safeSub.textContent="Volvé mañana para un nuevo intento.";
+  safeSub.textContent="Volvé mañana para un nuevo beneficio.";
 }
 function unlockGameUI(){
-  locked = false;
-  triesUsed = 0;
+  locked=false;
+  triesUsed=0;
   paintDots();
   resetFeedback();
-  tryBtn.disabled = false;
-  resetBtn.disabled = false;
+  tryBtn.disabled=false;
+  resetBtn.disabled=false;
   shield.textContent="🛡️";
   safeTitle.textContent="Ingresá el código";
-  safeSub.textContent="Ajustá los 3 dígitos y probá suerte (con lógica 😉)";
+  safeSub.textContent="Después de cada intento te marca en verde/dorado para ayudarte.";
 }
-
-/* Botón “Intentar de nuevo” (si ya usó la chance) */
-againBtn.onclick=()=>{
-  if(localStorage.getItem(K_DONE)==="1"){
-    alert("Ya usaste tu chance de hoy. Volvé mañana 🙌");
-    return;
-  }
-  alert("Todavía tenés tu chance de hoy. Probá el código 😉");
-};
 
 /* ========= Modal ========= */
 function openModal(pLabel, code, ts){
-  mPrize.textContent = pLabel;
-  mCode.textContent  = code;
-  mTs.textContent    = ts;
-
-  // link WA con texto
+  mPrize.textContent=pLabel;
+  mCode.textContent=code;
+  mTs.textContent=ts;
   const msg = whatsappText(pLabel, code, ts);
-  mClaim.onclick = ()=>location.href = `https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
-
+  mClaim.onclick=()=>location.href=`https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
   modal.classList.add("show");
 }
 function closeModal(){ modal.classList.remove("show"); }
-mClose.onclick=closeModal;
-mX.onclick=closeModal;
+mClose.onclick=closeModal; mX.onclick=closeModal;
 modal.addEventListener("click",(e)=>{ if(e.target===modal) closeModal(); });
 
 /* ========= UI Premio ========= */
@@ -1126,32 +1001,38 @@ function applyPrizeUI(p, code, ts, persisted=false){
   badge.textContent = (p.type==="money") ? money(p.value)
                    : (p.type==="percent") ? `${p.value}%`
                    : "x2";
-
   stamp.textContent = `Código: ${code} · ${ts}`;
 
-  rTitle.textContent = "🎉 ¡Beneficio asignado!";
+  rTitle.textContent="🎉 ¡Beneficio asignado!";
   rSub.innerHTML = (p.type==="money")
     ? `Recibís <b>${money(p.value)} extra</b> con tu próxima carga.`
     : (p.type==="percent")
       ? `Recibís un <b>${p.value}% extra</b> con tu próxima carga.`
       : `Recibís <b>Doble de tu carga</b> (según tope del operador).`;
 
-  // habilitar reclamar (dock)
   const msg = whatsappText(pLabel, code, ts);
   claimBtn.disabled=false;
-  claimBtn.onclick = ()=>location.href = `https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
+  claimBtn.onclick=()=>location.href=`https://wa.me/${WP}?text=${encodeURIComponent(msg)}`;
 
-  // abrir modal si recién asignó
   if(!persisted){
     setTimeout(()=>openModal(pLabel, code, ts), 250);
   }
 }
 
-/* ========= Intentos ========= */
+/* ========= “Puerta” anim + spark ========= */
+function playUnlockAnimation(){
+  safeBox.classList.add("unlocking");
+  const s=document.createElement("div");
+  s.className="spark";
+  safeBox.appendChild(s);
+  setTimeout(()=>{ s.remove(); }, 1200);
+  setTimeout(()=>{ safeBox.classList.remove("unlocking"); }, 1400);
+}
+
+/* ========= Intentar ========= */
 tryBtn.onclick = async ()=>{
   if(locked) return;
 
-  // si ya jugó hoy
   if(localStorage.getItem(K_DONE)==="1"){
     alert("Ya usaste tu chance de hoy. Volvé mañana 🙌");
     lockGameUI();
@@ -1161,36 +1042,41 @@ tryBtn.onclick = async ()=>{
   triesUsed++;
   paintDots();
 
-  const res = evaluate(secret, guess);
-  exactEl.textContent = String(res.exact);
-  presentEl.textContent = String(res.present);
-  tryNoEl.textContent = `${Math.min(triesUsed,MAX_TRIES)}/${MAX_TRIES}`;
+  const res = evaluateDetailed(secret, guess);
+  exactEl.textContent=String(res.exact);
+  presentEl.textContent=String(res.present);
+  tryNoEl.textContent=`${Math.min(triesUsed,MAX_TRIES)}/${MAX_TRIES}`;
 
-  // feedback texto pro
+  applyNumStates(res.state);
+
+  // feedback + vibración
   if(res.exact===3){
-    fbMsg.textContent = "✅ ¡Abriste la caja! Premio mayor asignado.";
+    fbMsg.textContent="✅ ¡Abriste la caja! Premio mayor asignado.";
+    if(soundOn) AudioKit.ok();
+    vibrate([40,40,70]);
   }else if(res.exact===2){
-    fbMsg.textContent = "🔥 Muy cerca: 2 exactos. Ajustá el que falta.";
+    fbMsg.textContent="🔥 Muy cerca: 2 exactos. Ajustá el que falta.";
+    if(soundOn) AudioKit.no();
+    vibrate([30,40,30]);
   }else if(res.exact===1 && res.present>=1){
-    fbMsg.textContent = "👍 Tenés 1 exacto y al menos 1 presente. Reordená.";
+    fbMsg.textContent="👍 Tenés 1 exacto y al menos 1 presente. Reordená.";
+    if(soundOn) AudioKit.no();
+    vibrate([20,30,20]);
   }else if(res.present>=2){
-    fbMsg.textContent = "🧠 Bien: hay números correctos pero están desordenados.";
+    fbMsg.textContent="🧠 Bien: hay números correctos pero están desordenados.";
+    if(soundOn) AudioKit.no();
+    vibrate(20);
   }else{
-    fbMsg.textContent = "❄️ Pista: probá cambiar más de un dígito.";
+    fbMsg.textContent="❄️ Pista: probá cambiar más de un dígito.";
+    if(soundOn) AudioKit.no();
+    safeBox.classList.remove("shake"); void safeBox.offsetWidth; safeBox.classList.add("shake");
+    vibrate(15);
   }
 
-  if(soundOn){
-    if(res.exact===3) AudioKit.ok();
-    else AudioKit.no();
-  }
-
-  // Si abre -> asignar premio inmediato
   if(res.exact===3){
     await finishGame(true, triesUsed);
     return;
   }
-
-  // Si llegó al intento 3 sin abrir -> premio garantizado
   if(triesUsed>=MAX_TRIES){
     await finishGame(false, triesUsed);
     return;
@@ -1198,35 +1084,59 @@ tryBtn.onclick = async ()=>{
 };
 
 async function finishGame(opened, attemptNo){
-  // asignar premio
   const p = rollPrize(opened, attemptNo);
   const pLabel = prizeLabel(p);
   const code = await makeClaimCode(pLabel);
   const ts = tsString(new Date());
 
-  // persistir
   localStorage.setItem(K_DONE,"1");
   localStorage.setItem(K_PRIZE, JSON.stringify(p));
   localStorage.setItem(K_CODE, code);
   localStorage.setItem(K_TS, ts);
   localStorage.setItem(K_DATE, todayKey());
 
-  // UI
+  // anim de apertura si abrió
+  if(opened){
+    playUnlockAnimation();
+    shield.textContent="🔓";
+  }else{
+    shield.textContent="🎁";
+    fbMsg.textContent="🎁 No se abrió, pero igual tenés premio garantizado.";
+  }
+
   applyPrizeUI(p, code, ts, false);
   lockGameUI();
+}
 
-  // “efecto” visual leve
-  const safeBox = document.getElementById("safeBox");
-  safeBox.classList.add("pulse");
-  setTimeout(()=>safeBox.classList.remove("pulse"), 1400);
+/* Intentar de nuevo (si ya usó) */
+againBtn.onclick=()=>{
+  if(localStorage.getItem(K_DONE)==="1"){
+    alert("Ya usaste tu chance de hoy. Volvé mañana 🙌");
+    return;
+  }
+  alert("Todavía tenés tu chance de hoy. Probá el código 😉");
+};
 
-  // si no abrió, aclaración
-  if(!opened){
-    fbMsg.textContent = "🎁 No se abrió, pero igual tenés premio garantizado.";
+/* Restore si ya jugó */
+function restoreIfPlayed(){
+  const done = localStorage.getItem(K_DONE)==="1";
+  const saved = localStorage.getItem(K_PRIZE);
+  if(done && saved){
+    const p = JSON.parse(saved);
+    const code = localStorage.getItem(K_CODE) || "—";
+    const ts = localStorage.getItem(K_TS) || tsString();
+    applyPrizeUI(p, code, ts, true);
+    lockGameUI();
+  }else{
+    badge.textContent="—";
+    stamp.textContent="Código: —";
+    rTitle.textContent="Tenés 1 juego disponible";
+    rSub.textContent="Abrí la caja para desbloquear tu beneficio.";
+    claimBtn.disabled=true;
   }
 }
 
-/* ========= Countdown ========= */
+/* Countdown */
 function endOfDay(){
   const n=new Date();
   const end=new Date(n.getFullYear(),n.getMonth(),n.getDate(),23,59,0,0).getTime();
@@ -1241,7 +1151,7 @@ function tickCountdown(){
   document.getElementById("countdown").textContent = txt;
 }
 
-/* ========= Snow ========= */
+/* Snow */
 function setupSnow(){
   const snow=document.getElementById("snow");
   snow.innerHTML="";
@@ -1259,28 +1169,23 @@ function setupSnow(){
   }
 }
 
-/* ========= Init ========= */
+/* Init */
 async function init(){
   setupSnow();
   restoreDaily();
 
-  // secreto del día
   secret = await dailySecret();
 
-  // init UI
   guess=[0,0,0];
   syncNums();
+
   triesUsed=0;
   paintDots();
   resetFeedback();
 
-  // restore si ya jugó
   restoreIfPlayed();
-  if(localStorage.getItem(K_DONE)!=="1"){
-    unlockGameUI();
-  }
+  if(localStorage.getItem(K_DONE)!=="1") unlockGameUI();
 
-  // countdown
   tickCountdown();
   setInterval(tickCountdown, 1000);
 }
